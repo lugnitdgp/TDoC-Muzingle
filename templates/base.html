@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzingle</title>
+</head>
+<body>
+    <h1>Muzingle</h1>
+    <form action="/" method="POST">
+        <input type="text" placeholder="Name of the song" name = "song">
+        <input type="number" placeholder="Year" name = "year">
+        <button>Submit</button>
+    </form>
+    <br>
+    {%for element in song1%}
+        {%for key,value in element.items()%}
+            {{key}}:&nbsp;{{value}}&comma;&nbsp;
+        {% endfor %}
+        <br>
+    {% endfor %}
+</body>
+</html>
