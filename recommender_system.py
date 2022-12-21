@@ -14,6 +14,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from sklearn.manifold import TSNE
 import pickle
+from importants import secretCode,getId
 
 model = pickle.load(open('model.pkl' , 'rb'))
 genre_data = pd.read_csv("data-set/data_by_genres.csv")
@@ -30,7 +31,7 @@ data.head(2)
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from collections import defaultdict
-sp = spotipy.Spotify(auth_manager = SpotifyClientCredentials(client_id='0974b43aac2e4485907d30c5ecb497ff' , client_secret='17e8f67767d0467fb8a1660496905f66'))
+sp = spotipy.Spotify(auth_manager = SpotifyClientCredentials(client_id=getId , client_secret=secretCode))
 def findSong(name,year):
     songData = defaultdict()
     results = sp.search(q='track:{} year:{}'.format(name,year),limit=1)
