@@ -7,6 +7,12 @@ import difflib
 import pandas as pd
 import numpy as np
 import joblib
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
 
 model = joblib.load('model.pkl')
 
@@ -14,16 +20,17 @@ data = pd.read_csv('notebook/data-set/data.csv')
 X = data.select_dtypes(np.number)
 X.drop(['key'], axis=1, inplace=True)
 num_columns = list(X.columns)
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='977cca1011764139afecd5b523f8077d', client_secret='c18cc8a0c7fa4f1cb89b14032a10d265'))
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
 
 # find songs not in the dataset
 def find_song(name, year):
     song_data = defaultdict()
     results = sp.search(q='track:{} year:{}'.format(name, year), limit=1)
-    if results['track']['items'] == []:
+    print(results)
+    if results['tracks']['items'] == []:
         return None
     
-    results = results['track']['items'][0]
+    results = results['tracks']['items'][0]
     track_id = results['id']
     audio_features = sp.audio_features(track_id)[0]
     
@@ -37,7 +44,7 @@ def find_song(name, year):
         song_data[key] = value
         
     song_data_df = pd.DataFrame(song_data)
-    song_cluster_label = model.predict(song_data_df[num_cloumns])
+    song_cluster_label = model.predict(song_data_df[num_columns])
     song_data_df['cluster'] = song_cluster_label
     
     return song_data_df
