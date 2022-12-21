@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Muzingle</title>
+</head>
+<body>
+  <h1>Muzingle</h1>
+	<main>
+    <form action="/" method="POST">
+      <div id="form-group">
+        <label for="songName">Enter the name of your favourite song</label>
+        <input type="text" placeholder="Name of song" name="song" id="songName">
+      </div>
+      <div id="form-group">
+        <label for="songYear">Enter the year of the song</label>
+        <input type="number" placeholder="Year of song" name="year" id="songYear">
+      </div>
+      <button type="submit">Recommend</button>
+    </form>
+    {% for song in recommended %}
+      <div>
+        {{ song.name }} ({{ song.year }}) by {{ song.artists }}
+      </div>
+    {% endfor %}
+  </main>
+</body>
+</html>
