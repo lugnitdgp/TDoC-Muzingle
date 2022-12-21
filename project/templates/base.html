@@ -4,10 +4,28 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Muzingle</title>
+  <style>
+    body {
+      font-size: 1.2rem;
+    }
+    #form-group {
+      margin: 2rem 0;
+    }
+    .song {
+      margin: 1.5rem 0;
+    }
+    input {
+      min-height: 1.3rem;
+    }
+    button {
+      margin-bottom: 1.3rem;
+    }
+  </style>
 </head>
 <body>
   <h1>Muzingle</h1>
 	<main>
+    <p>Enter your favourite song and we will recommend similar songs for you to listen</p>
     <form action="/" method="POST">
       <div id="form-group">
         <label for="songName">Enter the name of your favourite song</label>
@@ -19,11 +37,16 @@
       </div>
       <button type="submit">Recommend</button>
     </form>
-    {% for song in recommended %}
-      <div>
-        {{ song.name }} ({{ song.year }}) by {{ song.artists }}
-      </div>
-    {% endfor %}
+    <div id="songs">
+      {% if recommended %}
+        <b>Some song suggestions for you! Enjoy</b>
+        {% for song in recommended %}
+        <div class="song">
+          {{ song.name }} ({{ song.year }}) by {{ song.artists }}
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
   </main>
 </body>
 </html>

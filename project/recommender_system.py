@@ -26,7 +26,6 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, 
 def find_song(name, year):
     song_data = defaultdict()
     results = sp.search(q='track:{} year:{}'.format(name, year), limit=1)
-    print(results)
     if results['tracks']['items'] == []:
         return None
     
